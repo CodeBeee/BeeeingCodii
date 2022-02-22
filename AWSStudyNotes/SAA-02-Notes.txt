@@ -1,0 +1,103 @@
+placement group - 
+
+    cluster 
+        grouping of instances within a single AZ. Neeed for appps that  need low network latency and high network throughput. camt span AZ. Only few can type come under this.homogeous instances
+    spread
+        distinct underlying hardward. Small for. used for individual instances
+    partition
+        dont share rack or power. Multiple instances 
+
+    must be in stopped state to move between the placement groups. cant be done via console.
+    cant merg groups
+
+There is no minimum uptime requirement for an EC2 instance once it has been enabled.
+EC2 instance metadata can be used to configure or manage a running instance, and can also be used to access user data that was specified when the instance was launched. 
+User data is commonly used to bootstrap instances. 
+An EC2 instance provides scalable computing capacity in the AWS Cloud, which you can use to launch virtual servers, configure security and networking, and manage storage. 
+
+Hibernation allows instances to pick up where they left off. 
+EFS is a file-level storage solution. Isfor linux
+AMIs are templates for EC2 instances
+Provisioned IOPS would be the best option in this instance. 
+Amazon FSx for Lustre file systems can be linked to Amazon S3 buckets, allowing you to access and process data concurrently from both a high-performance file system and from the S3 API. best suited for ML/AI.
+EFS automatically scales the volume size based on usage.
+You can't unencrypt a volume using this method. 
+EBS volumes are not encrypted by default. 
+Use Amazon EBS encryption as a straight-forward encryption solution for your EBS resources associated with your EC2 instances. Encryption operations occur on the servers that host EC2 instances, ensuring the security of both data-at-rest and data-in-transit between an instance and its attached EBS storage.
+
+DynamoDB is not deployed into your VPC. Your VPC must have an internet gateway or a VPC endpoint configured to access resources such as Amazon DynamoDB.
+
+DynamoDB supports backup and restore. 
+A copy of your data is stored in one backup AZ, not in all AZs. 
+Amazon Virtual Private Cloud (Amazon VPC) enables you to launch AWS resources, such as Amazon RDS DB instances, into a virtual private cloud (VPC)
+You may use a read replica for disaster recovery of the source DB instance, either in the same AWS Region or in another Region. 
+
+AWS patches and updates your RDS databases. 
+ELB will send traffic to all the instances, hoping one is online. 
+
+A period is the length of time associated with a specific Amazon CloudWatch statistic. Each statistic represents an aggregation of the metrics data collected for a specified period of time. Periods are defined in numbers of seconds, and valid values for period are 1, 5, 10, 30, or any multiple of 60. For example, to specify a period of six minutes, use 360 as the period value. You can adjust how the data is aggregated by varying the length of the period. A period can be as short as one second or as long as one day (86,400 seconds). The default value is 60 seconds.
+
+CloudWatch Logs is the preferred AWS solution to handle logs. 
+
+Amazon CloudWatch Events rules use event patterns to select events and route them to targets. A pattern either matches an event or it doesn't. Event patterns are represented as JSON objects with a structure that is similar to that of events.
+
+Baking your code into your AMIs will help reduce provisioning time to reduce time it takes for EC2 to be ready.
+Auto Scaling will balance your EC2 count across the AZs you list. Define Multi AZ in ASG.
+When you use Elastic Load Balancing with your Auto Scaling group, it's not necessary to register individual EC2 instances with the load balancer. Instances that are launched by your Auto Scaling group are automatically registered with the load balancer. Likewise, instances that are terminated by your Auto Scaling group are automatically deregistered from the load balancer..
+
+Provisioned is the best option for a predictable workload.- DynamoDB
+What is the minimum length of time before you can schedule a KMS key to be deleted? - 7 days
+Only Secrets Manager supports credential rotation of RDS security credential
+Amazon GuardDuty is a threat detection service that continuously monitors your AWS accounts and workloads for malicious activity and delivers detailed security findings for visibility and remediation.
+
+DDoS A large number of connections overwhelms your architecture. Your application is unable to answer the legitimate requests that are sent to it.
+
+Insufficient patching of applications on an EC2 instance - AWS Inspector
+Compliances, Network/EC2. Detects vulnerabilities or deviations from best practices
+    Network Accessment - No agent needed
+    Host Accessment - agent needed 
+
+ Lambda supports up to 10GB of RAM
+ Systems Manager will handle on-prem and EC2 instance patches. 
+ The immutable pattern specifies a deployment of application code by starting an entirely new set of servers with a new configuration or version of application code. When we go immutable, we don't want to ever upgrade in place. Once the cloud resource exists, it can't be modified. 
+
+ Global Accelerator can help deal with IP caching issues by providing static IPs. 
+
+ Amazon ElastiSearch is fully managed version of the open souce application. It allows you to quickly search over your stored data and analyze the data you get back. It is commonly used as a part of an ElastiSearch, LogStash, Kibana (ELK) stack.
+
+ redshift is not HA
+
+ kenesis is queue system too. is faster and can store data uptp 1 year
+
+ shield free protection from DDos Attack. Advanced cost 3k per month. ELB, Rout53 , Layer 3/4
+
+ Cognito excels with mobile application logins. 
+
+ Yes! Transfer Family allows you to integrate legacy applications that use FTPS and S3 together
+ AWS Migration Hub can organize and track your move to the cloud
+  File Gateway provides NFS or SMB mounts and can be configured to keep a copy of your data locally as well as in S3.
+
+  GuardDuty threat detection utility. malicious IP , ports scanning, failed login. Monitors CloudTrailLogs, VPC Flow Logs, and DNS Logs. Leanrs normal behaviour and alerts on any abnormal 
+
+AWS Direct Connect can reduce network costs, increase bandwidth throughput, and provide a more consistent network experience than internet-based connections. It uses industry-standard 802.1q VLANs to connect to Amazon VPC using private IP addresses. You can choose from an ecosystem of WAN service providers for integrating your AWS Direct Connect endpoint in an AWS Direct Connect location with your remote networks. AWS Direct Connect lets you establish 1 Gbps or 10 Gbps dedicated network connections (or multiple connections) between AWS networks and one of the AWS Direct Connect locations. You can also work with your provider to create sub-1G connection or use link aggregation group (LAG) to aggregate multiple 1 gigabit or 10 gigabit connections at a single AWS Direct Connect endpoint, allowing you to treat them as a single, managed connection. A Direct Connect gateway is a globally available resource to enable connections to multiple Amazon VPCs across different regions or AWS accounts. https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect.html
+
+AWS Security Token Service (AWS STS) is the service that you can use to create and provide trusted users with temporary security credentials that can control access to your AWS resources. Temporary security credentials work almost identically to the long-term access key credentials that your IAM users can use. You can use the AWS Security Token Service (AWS STS) to create and provide trusted users with temporary security credentials that can control access to your AWS resources. Temporary security credentials work almost identically to the long-term access key credentials that your IAM users can use, with the following differences: Temporary security credentials are short-term, as the name implies. They can be configured to last for anywhere from a few minutes to several hours. After the credentials expire, AWS no longer recognizes them or allows any kind of access from API requests made with them. Temporary security credentials are not stored with the user but are generated dynamically and provided to the user when requested. When (or even before) the temporary security credentials expire, the user can request new credentials, as long as the user requesting them still has permissions to do so.
+
+The default configuration of the default NACL is Allow, and the default configuration of a custom NACL is Deny. Your VPC automatically comes with a modifiable default network ACL. By default, it allows all inbound and outbound IPv4 traffic and, if applicable, IPv6 traffic. You can create a custom network ACL and associate it with a subnet. By default, each custom network ACL denies all inbound and outbound traffic until you add rules.
+You can't delete default security group, however, you can change the group's rules.
+
+You have been evaluating the NACLs in your company. Currently, you are looking at the default network ACL. Which statement is true regarding subnets and NACLs?
+Each subnet in your VPC must be associated with a network ACL. If you don't explicitly associate a subnet with a network ACL, the subnet is automatically associated with the default network ACL.
+
+Using the AWS WAF service, set up rules which block SQL injection, and cross-site scripting attacks. Associate the rules to the ALB.
+
+AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits that may affect availability, compromise security, or consume excessive resources. AWS WAF gives you control over how traffic reaches your applications by enabling you to create security rules that block common attack patterns, such as SQL injection or cross-site scripting, and rules that filter out specific traffic patterns you define. You can get started quickly using Managed Rules for AWS WAF, a pre-configured set of rules managed by AWS or AWS Marketplace Sellers. The Managed Rules for WAF address issues like the OWASP Top 10 security risks. These rules are regularly updated as new issues emerge. AWS WAF includes a full-featured API that you can use to automate the creation, deployment, and maintenance of security rules. https://aws.amazon.com/waf/
+
+At the simplest level, AWS WAF lets you choose one of the following behaviors:
+
+Allow all requests except the ones that you specify – This is useful when you want CloudFront or an Application Load Balancer to serve content for a public website, but you also want to block requests from attackers.
+Block all requests except the ones that you specify – This is useful when you want to serve content for a restricted website whose users are readily identifiable by properties in web requests, such as the IP addresses that they use to browse to the website.
+Count the requests that match the properties that you specify – When you want to allow or block requests based on new properties in web requests, you first can configure AWS WAF to count the requests that match those properties without allowing or blocking those requests. This lets you confirm that you didn't accidentally configure AWS WAF to block all the traffic to your website. When you're confident that you specified the correct properties, you can change the behavior to allow or block requests.
+
+AWS Managed VPN lets you reuse existing VPN equipment and processes, and reuse existing internet connections. It is an AWS-managed high availability VPN service. It supports static routes or dynamic Border Gateway Protocol (BGP) peering and routing policies.
+
